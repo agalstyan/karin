@@ -16,6 +16,10 @@ class MY_Model extends CI_Model
 
 	public function init($data)
 	{
+		if (is_object($data)) {
+			$data = (array) $data;
+		}
+
 		foreach ($this->attributes as $field => $value) {
 			$this->attributes[$field] = isset($data[$field]) ? $data[$field] : '';
 		}

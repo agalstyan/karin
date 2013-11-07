@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Projects extends CI_Controller
+class AdminProjects extends CI_Controller
 {
 	public function __construct()
 	{
@@ -96,52 +96,53 @@ class Projects extends CI_Controller
 			show_404();
 		}
 
+		$result_images = [];
+		$images = $this->project->getImages($project_id);
+
+		if (!empty($images)) {
+			$this->config->load('image_lib');
+			$projects_root_dir = sprintf($this->config->item('projects_root_dir'), $project_id);
+			$big_dir = $projects_root_dir . $this->config->item('big_dir');
+			$thumb_dir = $projects_root_dir . $this->config->item('thumb_dir');
+			foreach ($images as $image) {
+			 	$result_images[] = [
+				 	'big' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $big_dir . $image->filename)),
+				 	'thumb' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $thumb_dir . $image->filename)),
+				 ];
+			}
+		}
+
 		$this->load->view('admin/header');
-		$this->load->view('admin/projects/images', ['project' => $this->project->findOne($project_id)]);
+		$this->load->view(
+			'admin/projects/images',
+			['project' => $this->project->findOne($project_id), 'images' => $result_images]
+		);
 		$this->load->view('admin/footer');
 	}
 
 	public function images_upload($project_id)
 	{
-		if (is_null($this->project->findOne($project_id))) {
+		$verifyToken = md5('unique_salt' . $_POST['timestamp']);
+		if (empty($_FILES) || $_POST['token'] != $verifyToken) {
+			$this->output->set_status_header('400');
+			echo 'No image';
+
+			return false;
+		}
+
+		$project = $this->project->findOne($project_id);
+		if (is_null($project)) {
 			$this->output->set_status_header('404');
 
 			return false;
 		}
 
-		$this->load->library('image_lib');
+		$this->project->init($project);
+		$filepath = $this->project->addImage($_FILES['Filedata']);
 
-		$root = $_SERVER['DOCUMENT_ROOT'] . '/karin/';
-		$targetFolder = 'public/assets/img/projects/' . $project_id . '/';
+		echo json_encode(['file' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $filepath))]);
 
-		if (!file_exists($root . $targetFolder)) {
-			mkdir($root . $targetFolder);
-		}
-
-		$this->libraries->load('gd');
-//		$this->gd->
-		$thumb = new PHPThumb\GD(__DIR__ .'/../tests/resources/test.jpg');
-		$thumb->adaptiveResize(175, 175);
-		$thumb->show();
-
-		$verifyToken = md5('unique_salt' . $_POST['timestamp']);
-
-		if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-			$tempFile = $_FILES['Filedata']['tmp_name'];
-			$targetFile = rtrim($targetFolder, '/') . '/' . $_FILES['Filedata']['name'];
-
-			// Validate the file type
-			$fileTypes = ['jpg', 'jpeg', 'gif', 'png']; // File extensions
-			$fileParts = pathinfo($_FILES['Filedata']['name']);
-
-			if (in_array(strtolower($fileParts['extension']), $fileTypes)) {
-				move_uploaded_file($tempFile, $root . $targetFile);
-				echo json_encode(['file' => base_url($targetFile)]);
-			} else {
-				$this->output->set_status_header('400');
-				echo 'Invalid file type.';
-			}
-		}
+		return true;
 	}
 
 }

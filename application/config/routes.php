@@ -38,8 +38,9 @@
 |
 */
 
-//$route['default_controller'] = "welcome";
-$route['admin'] = "admin/main";
+$route['default_controller'] = "main";
+$route['admin'] = "admin/adminindex";
+$route['admin/([^/]+)(.*)'] = "admin/admin$1$2";
 $route['404_override'] = '';
 
 

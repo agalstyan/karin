@@ -9,7 +9,6 @@
 <div class="row">
 	<div class="col-lg-4">
 		<div class="well">
-			<!-- The file upload form used as target for the file upload widget -->
 			<form>
 				<div id="queue"></div>
 				<input id="file_upload" name="file_upload" type="file" multiple="true">
@@ -44,19 +43,26 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-lg-4">
+		<div>
 		<ul class="list-group" id="images">
+			<?php foreach ($images as $image):?>
+			<li class="list-group-item">
+				<img src="<?=$image['thumb']?>"/>
+			</li>
+	        <?php endforeach;?>
 			<li class="list-group-item" id="image-template" style="display:none;">
-				<img src="" alt=""/>
+				<img src="" />
 			</li>
 		</ul>
+		</div>
 	</div>
 </div>
 
 
 <div class="row">
 	<div class="col-lg-1">
-		<a href="<?=base_url('admin/projects/' . $project->id)?>" class="btn btn-info btn-xs">Назад</a>
+		<a href="<?=base_url('admin/projects/show/' . $project->id)?>" class="btn btn-info btn-xs">Назад</a>
 	</div>
 </div>
 
