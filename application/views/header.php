@@ -7,10 +7,12 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-	<title>Karina Galstyan Admin</title>
+	<title>Karina Galstyan</title>
 
 	<?=link_tag('public/assets/css/bootstrap.css');?>
+	<?=link_tag('public/assets/css/bootswatch.min.css');?>
 	<?=link_tag('public/assets/css/starter-template.css');?>
+	<?=link_tag('public/assets/css/font-awesome.min.css');?>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -24,30 +26,29 @@
 
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<span class="navbar-brand">Админка</span>
-		</div>
-		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<?php $current_section = $this->uri->segment(2); ?>
-				<li <?php if($current_section == 'projects') {echo 'class="active"';}?>>
-					<a href="<?=base_url('admin/projects')?>">Проекты</a>
-				</li>
-				<li <?php if($current_section == 'pages') {echo 'class="active"';}?>>
-					<a href="<?=base_url('admin/pages')?>">Статические страницы</a>
-				</li>
-				<li <?php if($current_section == 'settings') {echo 'class="active"';}?>>
-					<a href="<?=base_url('admin/settings')?>">Настройки</a>
-				</li>
-			</ul>
-		</div><!--/.nav-collapse -->
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="<?=base_url('/')?>">Karina Galstyan</a>
+	</div>
+	<div class="collapse navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li class="dropdown<?=$this->uri->segment(2) == 'project' ? ' active' : ''?>">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Проекты<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<?php foreach ($projects as $project):?>
+						<li><a href="<?=base_url('project/' . $project->url)?>"><?=$project->title?></a></li>
+					<?php endforeach; ?>
+				</ul>
+			</li>
+			<?php foreach ($pages as $page):?>
+				<li><a href="<?=base_url($page->url)?>"><?=$page->title?></a></li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
 </div>
 

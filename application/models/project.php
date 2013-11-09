@@ -37,6 +37,18 @@ class Project extends My_Model
 		return $result;
 	}
 
+	public function findOneByUrl($url)
+	{
+		if (empty($url)) {
+			return null;
+		}
+
+		$where = ['url' => $url];
+		$result = $this->db->get_where($this->table, $where, 1)->result();
+
+		return isset($result[0]) ? $result[0] : null;
+	}
+
 	public function update($id, $data)
 	{
 		$data['creation_date'] = !empty($data['creation_date'])

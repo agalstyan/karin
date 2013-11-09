@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "main";
+$route['project/(.+)'] = "projects/show/$1";
 $route['admin'] = "admin/adminindex";
 $route['admin/([^/]+)(.*)'] = "admin/admin$1$2";
 $route['404_override'] = '';
