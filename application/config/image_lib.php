@@ -3,7 +3,7 @@
 $config['image_library'] = 'gd2'; // выбираем библиотеку
 $config['maintain_ratio'] = true;
 $config['quality'] = 100;
-$config['root_dir'] = $_SERVER['DOCUMENT_ROOT'] . '/karin/public/assets/img/';
+$config['root_dir'] = $_SERVER['DOCUMENT_ROOT'] . '/public/assets/img/';
 $config['projects_root_dir'] = $config['root_dir'] . 'projects/%d/';
 $config['thumb_dir'] = 'thumb/';
 $config['big_dir'] = 'big/';

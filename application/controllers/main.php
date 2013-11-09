@@ -23,8 +23,8 @@ class Main extends CI_Controller
 			$limit = count($images) <= 3 ? count($images) : 3;
 			for ($i = 0; $i < $limit; ++$i) {
 				$result_images[] = [
-					'big' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $big_dir . $images[$i]->filename)),
-					'thumb' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $thumb_dir . $images[$i]->filename)),
+					'big' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'], '', $big_dir . $images[$i]->filename)),
+					'thumb' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'], '', $thumb_dir . $images[$i]->filename)),
 				];
 			}
 			$project->images = $result_images;

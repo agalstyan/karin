@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'bitnami';
-$db['default']['database'] = 'karin';
+$db['default']['username'] = 'ashotgal_karin';
+$db['default']['password'] = 'Systemofadown1234';
+$db['default']['database'] = 'ashotgal_karin';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

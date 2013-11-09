@@ -106,8 +106,8 @@ class AdminProjects extends CI_Controller
 			$thumb_dir = $projects_root_dir . $this->config->item('thumb_dir');
 			foreach ($images as $image) {
 			 	$result_images[] = [
-				 	'big' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $big_dir . $image->filename)),
-				 	'thumb' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $thumb_dir . $image->filename)),
+				 	'big' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'], '', $big_dir . $image->filename)),
+				 	'thumb' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'], '', $thumb_dir . $image->filename)),
 				 ];
 			}
 		}
@@ -140,7 +140,7 @@ class AdminProjects extends CI_Controller
 		$this->project->init($project);
 		$filepath = $this->project->addImage($_FILES['Filedata']);
 
-		echo json_encode(['file' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'] . '/karin/', '', $filepath))]);
+		echo json_encode(['file' => base_url(str_replace($_SERVER['DOCUMENT_ROOT'], '', $filepath))]);
 
 		return true;
 	}
