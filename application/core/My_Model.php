@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/Validation/Presence.php';
 
-class MY_Model extends CI_Model
+class My_Model extends CI_Model
 {
 	protected $table;
 	protected $attributes = [];
