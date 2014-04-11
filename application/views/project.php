@@ -10,7 +10,9 @@
 					<table class="table">
 						<tr>
 							<?php for($i = 1; $i <= count($project->images); ++$i): ?>
-								<td><img src="<?=$project->images[$i - 1]['thumb']?>" alt=""/></td>
+								<td><a href="<?=$project->images[$i-1]['big']?>">
+									<img src="<?=$project->images[$i - 1]['thumb']?>" alt=""/>
+								</a></td>
 								<?=($i % 3 == 0) ? '</tr><tr>' : ''?>
 							<?php endfor; ?>
 						</tr>
